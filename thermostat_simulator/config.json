@@ -4,7 +4,5 @@
     "decrement_deg": 0.1,
     "mod_interval" : 1,
     "port" : 1234,
-    "request_url" : "127.0.0.1:3333/target_temp",
-    "normalize_deg" : 0.3,
-    "n_interval" : 5
+    "request_url" : "127.0.0.1:3333/temp"
 }

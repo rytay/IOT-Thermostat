@@ -12,8 +12,6 @@ INCREMENT_DEG = config['increment_deg']
 DECREMENT_DEG = config['decrement_deg']
 MOD_INTERVAL = config['mod_interval']
 SERVER_URL = config['request_url']
-N_DEG = config['normalize_deg']
-N_INTERVAL = config['n_interval']
 
 def adjust_temp(target_temp, current_temp):
     if target_temp > round(current_temp, 1):
@@ -28,21 +26,6 @@ def adjust_temp(target_temp, current_temp):
         print('Temperatures matched')
     
     return current_temp
-'''
-def normalize(outside_temp, current_temp):
-    print('Normalizing temperature...')
-    print('Outside temperature: '+ str(outside_temp))
-    print('current_temp: '+str(current_temp))
-    while outside_temp > current_temp:
-        time.sleep(N_INTERVAL)
-        current_temp += N_DEG
-        print('current_temp: '+str(current_temp))
-    while outside_temp < current_temp:
-        time.sleep(N_INTERVAL)
-        current_temp -= N_DEG
-        print('current_temp: '+str(current_temp))
-    return current_temp
-'''
 
 #TODO Ask server for the target temp
 #Right now this only returns a random double between 23 and 27 excluding 25
@@ -55,7 +38,7 @@ def request_target_temp():
 current_temp = START_TEMP
 target_temp = 26.1
 while True:
-    if round(current_temp,1) != target_temp:
+    if round(current_temp, 1) != target_temp:
         current_temp = adjust_temp(target_temp, current_temp)
     else:
         print("Waiting 10 seconds before requesting target temperature again")

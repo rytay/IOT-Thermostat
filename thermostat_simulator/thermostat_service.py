@@ -16,16 +16,17 @@ N_DEG = config['normalize_deg']
 N_INTERVAL = config['n_interval']
 
 def adjust_temp(target_temp, current_temp):
-    if target_temp > current_temp + 0.1:
+    if target_temp > round(current_temp, 1):
         time.sleep(MOD_INTERVAL)
         current_temp += INCREMENT_DEG
         print('current_temp: '+str(current_temp))
-    if target_temp < current_temp + 0.1:
+    elif target_temp < round(current_temp, 1):
         time.sleep(MOD_INTERVAL)
         current_temp -= DECREMENT_DEG
         print('current_temp: ' + str(current_temp))
     else:
         print('Temperatures matched')
+    
     return current_temp
 
 def normalize(outside_temp, current_temp):
@@ -50,8 +51,8 @@ def get_target_temp():
     return int(response['target_temp'])
 
 current_temp = START_TEMP
-while True:
-    target_temp = get_target_temp()
+target_temp = 26.0
+while(round(current_temp,1) != target_temp):
     current_temp = adjust_temp(target_temp, current_temp)
 
 

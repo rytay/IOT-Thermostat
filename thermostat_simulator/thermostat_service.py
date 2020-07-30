@@ -28,7 +28,7 @@ def adjust_temp(target_temp, current_temp):
         print('Temperatures matched')
     
     return current_temp
-
+'''
 def normalize(outside_temp, current_temp):
     print('Normalizing temperature...')
     print('Outside temperature: '+ str(outside_temp))
@@ -42,18 +42,24 @@ def normalize(outside_temp, current_temp):
         current_temp -= N_DEG
         print('current_temp: '+str(current_temp))
     return current_temp
-
+'''
 
 #TODO Ask server for the target temp
 #Right now this only returns a random double between 23 and 27 excluding 25
-def get_target_temp():
+def request_target_temp():
     response = requests.get(SERVER_URL)
-    return int(response['target_temp'])
+    target_temp = float(response['target_temp'])
+    #system_active = int(response['system_active'])
+    return target_temp
 
 current_temp = START_TEMP
-target_temp = 26.0
-while(round(current_temp,1) != target_temp):
-    current_temp = adjust_temp(target_temp, current_temp)
+target_temp = 26.1
+while True:
+    if round(current_temp,1) != target_temp:
+        current_temp = adjust_temp(target_temp, current_temp)
+    else:
+        print("Waiting 10 seconds before requesting target temperature again")
+        time.sleep(10)
 
 
 
